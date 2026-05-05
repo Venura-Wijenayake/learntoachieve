@@ -1,5 +1,7 @@
 # Learn to Achieve — Website
 
+[![Lighthouse CI](https://github.com/Venura-Wijenayake/learntoachieve/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/Venura-Wijenayake/learntoachieve/actions/workflows/lighthouse.yml)
+
 The public website for **Learn to Achieve**, a California civic-technology nonprofit building free, open-source data tools and education programs for under-resourced learners.
 
 🌐 **Live at:** [learntoachieve.us](https://learntoachieve.us)
@@ -88,6 +90,12 @@ CA Entity Number: C4084984
 Founded: 2017, Del Norte County, CA
 
 Contact: learntoachieves@gmail.com
+
+---
+
+## Quality
+
+Every push to `main` triggers a Lighthouse CI run scoring the live site across four categories: Performance, Accessibility, Best Practices, and SEO. Detailed reports are uploaded to temporary public storage (linked from each run's logs) for 7 days. See the **Actions** tab for run history.
 
 ---
 
