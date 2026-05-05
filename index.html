@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn to Achieve — Tools for learners at decision points</title>
+<meta name="description" content="A California 501(c)(3) building free, open-source data tools and education programs for under-resourced learners — from high school to medical residency.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://learntoachieve.us">
+<meta property="og:title" content="Learn to Achieve — Tools for learners at decision points">
+<meta property="og:description" content="A California civic-tech nonprofit building free, open-source data tools and education programs for under-resourced learners — from high school to medical residency.">
+<meta property="og:image" content="https://learntoachieve.us/og-image.png">
+<meta property="og:site_name" content="Learn to Achieve">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://learntoachieve.us">
+<meta name="twitter:title" content="Learn to Achieve — Tools for learners at decision points">
+<meta name="twitter:description" content="A California civic-tech nonprofit building free, open-source data tools and education programs for under-resourced learners.">
+<meta name="twitter:image" content="https://learntoachieve.us/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0E1411;
+    --ink-2: #1F2622;
+    --paper: #F5F1E8;
+    --paper-2: #EEE7D6;
+    --paper-3: #E8DEC4;
+    --accent: #0F6E56;
+    --accent-2: #1D9E75;
+    --warm: #C66B2B;
+    --warm-2: #E89058;
+    --rule: rgba(14, 20, 17, 0.12);
+    --rule-strong: rgba(14, 20, 17, 0.28);
+    --mute: #5C625E;
+    --mute-2: #888780;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    /* subtle grain texture for paper feel */
+    background-image:
+      radial-gradient(at 20% 10%, rgba(15, 110, 86, 0.03) 0, transparent 40%),
+      radial-gradient(at 80% 70%, rgba(198, 107, 43, 0.03) 0, transparent 40%);
+  }
+
+  ::selection { background: var(--warm-2); color: var(--ink); }
+
+  /* utility */
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  .wrap-narrow { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+  /* ===== top nav ===== */
+  .nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0;
+    background: rgba(245, 241, 232, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); }
+  .brand-mark {
+    width: 36px; height: 36px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    border-radius: 2px;
+  }
+  .brand-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 14;
+  }
+  .brand-name em { font-style: italic; font-weight: 400; color: var(--mute); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 18px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); color: white; }
+
+  /* ===== status pill ===== */
+  .status-bar {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+    padding: 8px 0;
+    font-size: 13px;
+  }
+  .status-inner { display: flex; align-items: center; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .live-dot { width: 7px; height: 7px; background: var(--accent-2); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  .status-bar a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
+  .status-bar a:hover { text-decoration-color: var(--accent); }
+  .status-bar .sep { color: var(--mute-2); }
+
+  /* ===== hero ===== */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 80px;
+    align-items: end;
+  }
+  .hero-eyebrow {
+    color: var(--accent);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  h1.hero-title {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(44px, 6.4vw, 84px);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    margin-bottom: 24px;
+    max-width: 14ch;
+  }
+  h1.hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 60, "WONK" 1;
+  }
+  .hero-tagline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(20px, 2.2vw, 26px);
+    color: var(--ink-2);
+    margin-bottom: 32px;
+    letter-spacing: -0.005em;
+    max-width: 26ch;
+    font-variation-settings: "opsz" 60;
+  }
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin-bottom: 40px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule-strong);
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--paper-2); }
+  .btn .arrow { transition: transform 0.2s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* hero side — fact card */
+  .hero-side {
+    border-left: 1px solid var(--rule);
+    padding-left: 28px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+  }
+  .fact-line {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fact-line:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
+  .fact-num {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variation-settings: "opsz" 144;
+  }
+  .fact-num em { font-style: italic; color: var(--warm); font-weight: 350; }
+  .fact-label {
+    font-size: 12px;
+    color: var(--mute);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* ===== three pillars ===== */
+  .pillars { padding: 120px 0; border-bottom: 1px solid var(--rule); }
+  .section-label {
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .section-h2 {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    max-width: 18ch;
+    font-variation-settings: "opsz" 96;
+  }
+  .section-h2 em { font-style: italic; color: var(--warm); font-weight: 300; font-variation-settings: "opsz" 96, "SOFT" 50, "WONK" 1; }
+  .section-lede {
+    font-size: 18px;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin-bottom: 64px;
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .pillar {
+    padding: 36px 28px 36px 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+  }
+  .pillar:nth-child(2) { padding-left: 28px; padding-right: 28px; }
+  .pillar:last-child { border-right: 0; padding-left: 28px; padding-right: 0; }
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--mute);
+    margin-bottom: 24px;
+  }
+  .pillar-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 36;
+  }
+  .pillar-status {
+    display: inline-block;
+    font-size: 11px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+  .status-live { background: var(--accent-2); color: white; }
+  .status-soon { background: var(--paper-2); color: var(--mute); border: 1px solid var(--rule-strong); }
+  .status-archive { background: transparent; color: var(--mute-2); border: 1px solid var(--rule); }
+  .pillar-body {
+    font-size: 15px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+  .pillar-link {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 2px;
+    transition: border-color 0.15s;
+    align-self: flex-start;
+  }
+  .pillar-link:hover { border-bottom-color: var(--ink); }
+  .pillar-link.muted { color: var(--mute); border-bottom-color: var(--rule); }
+
+  /* ===== featured project — HEE ===== */
+  .featured {
+    padding: 120px 0;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .featured .section-label { color: var(--warm-2); }
+  .featured h2 {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    max-width: 22ch;
+    font-variation-settings: "opsz" 96;
+  }
+  .featured h2 em { font-style: italic; color: var(--warm-2); font-weight: 300; font-variation-settings: "opsz" 96, "SOFT" 60, "WONK" 1; }
+  .featured .lede {
+    color: rgba(245, 241, 232, 0.75);
+    font-size: 18px;
+    max-width: 56ch;
+    margin-bottom: 56px;
+  }
+  .demo-card {
+    background: var(--ink-2);
+    border: 1px solid rgba(245, 241, 232, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .demo-bar {
+    background: rgba(245, 241, 232, 0.04);
+    border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(245, 241, 232, 0.6);
+  }
+  .demo-dots { display: flex; gap: 6px; }
+  .demo-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(245, 241, 232, 0.18); }
+  .demo-url { background: rgba(245, 241, 232, 0.06); padding: 4px 12px; border-radius: 2px; flex: 1; max-width: 360px; }
+  .demo-body {
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .demo-stats { display: flex; flex-direction: column; gap: 18px; }
+  .demo-stat { padding-bottom: 18px; border-bottom: 1px solid rgba(245, 241, 232, 0.1); }
+  .demo-stat:last-child { border-bottom: 0; padding-bottom: 0; }
+  .demo-stat-num {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+    font-variation-settings: "opsz" 96;
+  }
+  .demo-stat-num small { color: var(--warm-2); font-size: 22px; font-style: italic; font-weight: 350; }
+  .demo-stat-label {
+    font-size: 12px;
+    color: rgba(245, 241, 232, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: var(--mono);
+  }
+  .chart-box {
+    height: 240px;
+    background: rgba(245, 241, 232, 0.02);
+    border-radius: 2px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+  }
+  .chart-title {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 12px;
+    color: rgba(245, 241, 232, 0.6);
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 150px;
+  }
+  .bar {
+    flex: 1;
+    background: rgba(245, 241, 232, 0.18);
+    border-radius: 1px;
+    position: relative;
+    min-height: 12px;
+    transition: background 0.2s;
+  }
+  /* lead bar uses warm coral; rest uses muted paper for restraint */
+  .bar:nth-child(1) { height: 95%; background: var(--warm-2); }
+  .bar:nth-child(2) { height: 78%; background: var(--accent-2); }
+  .bar:nth-child(3) { height: 62%; }
+  .bar:nth-child(4) { height: 51%; }
+  .bar:nth-child(5) { height: 44%; }
+  .bar:nth-child(6) { height: 38%; }
+  .bar:nth-child(7) { height: 31%; }
+  .bar:nth-child(8) { height: 24%; }
+  .bar:nth-child(9) { height: 19%; }
+  .bar:nth-child(10) { height: 15%; }
+  .bar-labels { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--mono); font-size: 10px; color: rgba(245, 241, 232, 0.4); }
+  .featured-cta { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-light { background: var(--paper); color: var(--ink); }
+  .btn-light:hover { background: var(--warm-2); color: white; }
+  .btn-ghost-light { background: transparent; color: var(--paper); border-color: rgba(245, 241, 232, 0.25); }
+  .btn-ghost-light:hover { border-color: var(--paper); }
+
+  /* ===== through-line / thesis ===== */
+  .thesis { padding: 120px 0; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .thesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .thesis-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 96, "SOFT" 50;
+  }
+  .thesis-quote em { font-style: italic; color: var(--warm); font-weight: 400; font-variation-settings: "opsz" 96, "SOFT" 60, "WONK" 1; }
+  .thesis-attr { margin-top: 28px; font-size: 13px; color: var(--mute); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  .thesis-points { display: flex; flex-direction: column; gap: 32px; }
+  .thesis-point { display: grid; grid-template-columns: 32px 1fr; gap: 18px; }
+  .thesis-point-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    padding-top: 4px;
+  }
+  .thesis-point-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 19px;
+    margin-bottom: 6px;
+    letter-spacing: -0.005em;
+  }
+  .thesis-point-body { font-size: 15px; color: var(--ink-2); line-height: 1.6; }
+
+  /* ===== roots / legacy ===== */
+  .roots { padding: 100px 0; background: var(--paper-2); border-bottom: 1px solid var(--rule); }
+  .roots-inner { display: grid; grid-template-columns: 220px 1fr; gap: 80px; align-items: start; }
+  .roots .section-label { color: var(--warm); margin-bottom: 0; }
+  .roots-content h3 {
+    font-family: var(--serif);
+    font-weight: 350;
+    font-size: 28px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    max-width: 32ch;
+    font-variation-settings: "opsz" 60;
+  }
+  .roots-content h3 em { font-style: italic; color: var(--warm); font-weight: 400; font-variation-settings: "opsz" 60, "SOFT" 60, "WONK" 1; }
+  .roots-content p {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 64ch;
+    margin-bottom: 16px;
+  }
+  .roots-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+  .roots-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--mute);
+    padding: 5px 10px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    background: var(--paper);
+  }
+
+  /* ===== team ===== */
+  .team { padding: 120px 0; border-bottom: 1px solid var(--rule); }
+  .team-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 72px; }
+  .team-intro-left { max-width: 22ch; }
+  .team-intro-right { font-size: 17px; color: var(--ink-2); line-height: 1.6; max-width: 52ch; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .team-card {
+    padding: 36px 28px 36px 0;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .team-card:nth-child(3n) { border-right: 0; padding-right: 0; }
+  .team-card:nth-child(3n+2) { padding-left: 28px; padding-right: 28px; }
+  .team-card:nth-child(3n+1):not(:first-child) { padding-left: 0; }
+  .team-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    font-variation-settings: "opsz" 36;
+  }
+  .team-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .team-tenure {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--mute-2);
+    margin-bottom: 18px;
+  }
+  .team-bio {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+  .team-founders {
+    margin-top: 56px;
+    padding: 28px 32px;
+    background: var(--paper-2);
+    border-radius: 2px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .team-founders-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--mute);
+  }
+  .team-founders-text {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+  .team-founders-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ===== involve ===== */
+  .involve { padding: 120px 0; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .involve-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .involve-card {
+    background: var(--paper-2);
+    padding: 36px 28px;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .involve-card:hover {
+    border-color: var(--rule-strong);
+    transform: translateY(-2px);
+  }
+  .involve-card h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 36;
+  }
+  .involve-card p {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .involve-card a {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 2px;
+  }
+  .involve-card a:hover { border-bottom-color: var(--ink); }
+
+  /* ===== footer ===== */
+  .footer { padding: 80px 0 40px; background: var(--paper-2); }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 56px;
+    margin-bottom: 56px;
+  }
+  .footer-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .footer-blurb {
+    font-size: 14px;
+    color: var(--mute);
+    line-height: 1.6;
+    max-width: 38ch;
+  }
+  .footer h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mute);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .footer ul { list-style: none; }
+  .footer li { margin-bottom: 10px; }
+  .footer a {
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s;
+  }
+  .footer a:hover { color: var(--accent); }
+  .footer-meta {
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--mute-2);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 32px; }
+    .pillar-grid, .team-grid, .involve-grid { grid-template-columns: 1fr; }
+    .pillar, .team-card { border-right: 0; border-bottom: 1px solid var(--rule); padding: 32px 0; }
+    .pillar:nth-child(2), .team-card:nth-child(3n+2) { padding-left: 0; padding-right: 0; }
+    .pillar:last-child { padding: 32px 0; border-bottom: 0; }
+    .demo-body { grid-template-columns: 1fr; }
+    .thesis-grid, .roots-inner, .team-intro, .team-founders { grid-template-columns: 1fr; gap: 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .hero { padding: 60px 0 50px; }
+    .pillars, .featured, .thesis, .involve, .team { padding: 70px 0; }
+  }
+  @media (max-width: 560px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .nav-cta { display: none; }
+    .status-inner { font-size: 12px; }
+    h1.hero-title { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== STATUS BAR ===== -->
+<div class="status-bar">
+  <div class="wrap status-inner">
+    <span class="live-dot"></span>
+    <span style="color: var(--mute);">Live now ·</span>
+    <a href="https://medicare-healthcare-explorer.streamlit.app" target="_blank" rel="noopener">Healthcare Expenditure Explorer</a>
+    <span class="sep">·</span>
+    <span style="color: var(--mute);">CMS Medicare Part D · 28,255 records</span>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#">
+      <div class="brand-mark">L2A</div>
+      <div class="brand-name">Learn to Achieve</div>
+    </a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#roots">Roots</a>
+      <a href="#team">Team</a>
+      <a href="#involve">Get involved</a>
+      <a class="nav-cta" href="#involve">Donate</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow mono">A California civic-tech nonprofit · est. 2017</div>
+      <h1 class="hero-title">From high school to <em>medical residency</em>.</h1>
+      <p class="hero-tagline">Tools for learners at decision points.</p>
+      <p class="hero-sub">
+        Learn to Achieve builds free, open-source data tools and education programs that help under-served learners make better-informed choices — about college, careers, healthcare, and what comes next. We've been doing it since 2017.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#work">
+          See our work
+          <span class="arrow">→</span>
+        </a>
+        <a class="btn btn-secondary" href="#roots">Read our story</a>
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="fact-line">
+        <div class="fact-num">28,255</div>
+        <div class="fact-label">CMS Medicare Part D records currently queryable on our flagship explorer.</div>
+      </div>
+      <div class="fact-line">
+        <div class="fact-num">$<em>631K</em></div>
+        <div class="fact-label">Annual cost-per-beneficiary of the most expensive drug we've surfaced (Strensiq).</div>
+      </div>
+      <div class="fact-line">
+        <div class="fact-num">Since '17</div>
+        <div class="fact-label">A California nonprofit serving under-resourced learners — first as a youth mentorship program, now as a civic-data publisher.</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== THREE PILLARS / PORTFOLIO ===== -->
+<section class="pillars" id="work">
+  <div class="wrap">
+    <div class="section-label mono">— What we ship</div>
+    <h2 class="section-h2">Three lanes. <em>One mission.</em> Free for everyone who needs it.</h2>
+    <p class="section-lede">
+      Every project below is open source, public-benefit, and built to work without a login. If a public agency, journalist, student, or job-seeker would benefit, we publish it — and we keep publishing it.
+    </p>
+
+    <div class="pillar-grid">
+      <article class="pillar">
+        <div class="pillar-num">01 / Healthcare</div>
+        <h3 class="pillar-title">U.S. Healthcare Expenditure Explorer</h3>
+        <span class="pillar-status status-live">● Live</span>
+        <p class="pillar-body">
+          Where Medicare drug dollars actually go. Search 28,000+ records, compare brand vs. generic spending, watch the GLP-1 line item climb across quarters. Built on CMS open data — no login, no paywall, source on GitHub.
+        </p>
+        <a class="pillar-link" href="https://medicare-healthcare-explorer.streamlit.app" target="_blank" rel="noopener">Open the explorer →</a>
+      </article>
+
+      <article class="pillar">
+        <div class="pillar-num">02 / Workforce</div>
+        <h3 class="pillar-title">CA Healthcare Workforce GIS Dashboard</h3>
+        <span class="pillar-status status-soon">○ In scoping</span>
+        <p class="pillar-body">
+          A state-partner project mapping healthcare professional shortages county-by-county across California — replacing manual GIS work with a public, validated, AI-augmented pipeline. In scoping with the California Department of Workforce Development.
+        </p>
+        <a class="pillar-link muted" href="#">Partnership brief — coming soon</a>
+      </article>
+
+      <article class="pillar">
+        <div class="pillar-num">03 / Education</div>
+        <h3 class="pillar-title">Aeries SIS &amp; LCAP outcomes tooling</h3>
+        <span class="pillar-status status-archive">— Concluded · IP retained</span>
+        <p class="pillar-body">
+          The data tooling we built between 2018 and 2021 for HSU TRIO and federal college-prep programs (GEAR UP, Upward Bound). Designed to handle student-outcome reporting without a six-figure SaaS contract. Archive maintained; re-deployable on request.
+        </p>
+        <a class="pillar-link muted" href="#">See the legacy stack →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED — HEE deep dive ===== -->
+<section class="featured">
+  <div class="wrap">
+    <div class="section-label mono">— Featured project</div>
+    <h2>What if every American could see exactly <em>where Medicare's $$ went</em> last quarter?</h2>
+    <p class="lede">
+      The Healthcare Expenditure Explorer is our flagship open-source dashboard. No login. No paywall. No PDF report. Just live data, fast filters, and answers anyone can fork on GitHub.
+    </p>
+
+    <div class="demo-card">
+      <div class="demo-bar">
+        <div class="demo-dots"><span></span><span></span><span></span></div>
+        <div class="demo-url">medicare-healthcare-explorer.streamlit.app</div>
+        <span style="color: rgba(245, 241, 232, 0.4);">Q1 2024 — Q2 2025</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-stats">
+          <div class="demo-stat">
+            <div class="demo-stat-num">28,255</div>
+            <div class="demo-stat-label">Drug records indexed</div>
+          </div>
+          <div class="demo-stat">
+            <div class="demo-stat-num">91.1<small>%</small></div>
+            <div class="demo-stat-label">Brand-name share of spending</div>
+          </div>
+          <div class="demo-stat">
+            <div class="demo-stat-num">$631K</div>
+            <div class="demo-stat-label">Highest annual cost / patient</div>
+          </div>
+          <div class="demo-stat">
+            <div class="demo-stat-num">6</div>
+            <div class="demo-stat-label">Quarters of CMS data indexed</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">Top 10 drugs by Medicare Part D spending</div>
+          <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <div class="bar-labels">
+            <span>Ozempic</span>
+            <span>Eliquis</span>
+            <span>Trulicity</span>
+            <span>Jardiance</span>
+            <span>Mounjaro</span>
+            <span>Imbruvica</span>
+            <span>Xarelto</span>
+            <span>Biktarvy</span>
+            <span>Revlimid</span>
+            <span>Stelara</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured-cta">
+      <a class="btn btn-light" href="https://medicare-healthcare-explorer.streamlit.app" target="_blank" rel="noopener">
+        Try the live explorer
+        <span class="arrow">→</span>
+      </a>
+      <a class="btn btn-ghost-light" href="https://github.com/Venura-Wijenayake/Healthcare-expenditure-explorer" target="_blank" rel="noopener">
+        View source on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THROUGH-LINE / THESIS ===== -->
+<section class="thesis" id="thesis">
+  <div class="wrap thesis-grid">
+    <div>
+      <div class="section-label mono">— The through-line</div>
+      <p class="thesis-quote">
+        The same kid who needed a mentor to navigate a college application in 2018 needs a labor-market dashboard to navigate medical residency in 2026. <em>Same job. Different tools.</em>
+      </p>
+      <div class="thesis-attr">— L2A operating thesis · since 2017</div>
+    </div>
+    <div class="thesis-points">
+      <div class="thesis-point">
+        <div class="thesis-point-num">01.</div>
+        <div>
+          <h4 class="thesis-point-title">Information should be free.</h4>
+          <p class="thesis-point-body">Public data, plainly built. If a tool we publish requires a login, a paywall, or a six-figure annual contract to access — we've built the wrong thing. Every project ships open source on GitHub, MIT-licensed by default.</p>
+        </div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-num">02.</div>
+        <div>
+          <h4 class="thesis-point-title">Learners need tools, not gatekeepers.</h4>
+          <p class="thesis-point-body">From a Del Norte high schooler choosing a college, to a TRIO coordinator filing grant reports, to a medical resident picking a hospital — every learner faces decision points where data is locked behind expertise they don't have. We unlock it.</p>
+        </div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-num">03.</div>
+        <div>
+          <h4 class="thesis-point-title">Continuity, not pivots.</h4>
+          <p class="thesis-point-body">We've been doing the same job since 2017: helping under-served communities make sense of the systems built around them. The mediums change — mentorship, then SIS tooling, now civic data. The mission doesn't.</p>
+        </div>
+      </div>
+      <div class="thesis-point">
+        <div class="thesis-point-num">04.</div>
+        <div>
+          <h4 class="thesis-point-title">We work with public partners, not against them.</h4>
+          <p class="thesis-point-body">State agencies, school districts, county health offices, and federal college-prep programs are not our adversaries. They're underfunded, under-staffed, and over-deadlined. We build them tools that make their work easier, not reports that make them look bad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROOTS / LEGACY ===== -->
+<section class="roots" id="roots">
+  <div class="wrap roots-inner">
+    <div class="section-label mono">— Our roots</div>
+    <div class="roots-content">
+      <h3>Before the dashboards, there were students. <em>And a Tuesday-Thursday after-school program in Del Norte.</em></h3>
+      <p>
+        From 2017 to 2021, we ran the <strong>Achiever Mentorship</strong> program at Del Norte High School — an after-school program serving Black, Native American (Yurok and Tolowa), and Hispanic students. Workability paid student jobs, stop-motion animation, graphic design, podcast art, college planning, Family Dinner community nights. The program is no longer running, but the students who came through it are why this 501(c)(3) exists.
+      </p>
+      <p>
+        That work is the reason we're here. Learn to Achieve was built to serve learners who weren't being served — and it was always going to be a 20-year job, not a 5-year project. The pivot to civic data isn't a departure. It's the same work, played out at the next decision point. The high schooler who needed help applying to college becomes the college student who needs help finding a career. The career-finder becomes the medical student. The medical student becomes the resident choosing a hospital. We follow the learner.
+      </p>
+      <div class="roots-tags">
+        <span class="roots-tag">Del Norte HS</span>
+        <span class="roots-tag">Yurok &amp; Tolowa students</span>
+        <span class="roots-tag">HSU TRIO &amp; GEAR UP</span>
+        <span class="roots-tag">Workability</span>
+        <span class="roots-tag">Del Nerdy Media</span>
+        <span class="roots-tag">2017 — 2021</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="section-label mono">— The team</div>
+    <div class="team-intro">
+      <h2 class="section-h2 team-intro-left">A small team. <em>A focused mission.</em></h2>
+      <p class="team-intro-right">
+        Learn to Achieve has always been a small organization. We've kept it that way on purpose — small teams ship, big teams meet. Below are the people doing the work today, plus the founders and board members who provide governance and continuity across leadership generations.
+      </p>
+    </div>
+
+    <div class="team-grid">
+      <article class="team-card">
+        <div class="team-name">Venura Wijenayake</div>
+        <div class="team-role">Technical Director</div>
+        <div class="team-tenure">Joined 2018 · Director since 2024</div>
+        <p class="team-bio">
+          Joined Learn to Achieve in 2018 as a technical contributor during the Aeries SIS data tooling era. Stepped into the Technical Director role in 2024, leading the organization's data and engineering work — including the U.S. Healthcare Expenditure Explorer and the healthcare and workforce-data programs. Background in computer science with a focus on healthcare analytics, public-data infrastructure, and dashboard tooling.
+        </p>
+      </article>
+
+      <article class="team-card">
+        <div class="team-name">Joseph</div>
+        <div class="team-role">Director of Workforce Programs</div>
+        <div class="team-tenure">Joined 2026</div>
+        <p class="team-bio">
+          Leads partnerships with state and federal workforce-development agencies, including the California Department of Workforce Development and Healthcare. Brings deep operational expertise in healthcare workforce mapping, GIS-based shortage analysis, and inter-agency public-data coordination. Anchors L2A's California Healthcare Workforce program.
+        </p>
+      </article>
+
+      <article class="team-card">
+        <div class="team-name">Roberto Morales</div>
+        <div class="team-role">CFO &amp; Chief Technology Officer</div>
+        <div class="team-tenure">Co-founder · Since 2017</div>
+        <p class="team-bio">
+          Co-founded Learn to Achieve in 2017. Architected the organization's original Aeries SIS data tooling and led its 2020-2021 SaaS pilot with HSU TRIO and GEAR UP. Manages the organization's financial operations, IRS filings (Form 990 series), and infrastructure. Maintains continuity across leadership generations.
+        </p>
+      </article>
+    </div>
+
+    <div class="team-founders">
+      <div class="team-founders-label">Founders &amp; board</div>
+      <div class="team-founders-text">
+        <p style="margin-bottom: 14px;"><strong>Sahil Amresh Ratnam</strong> &mdash; Founder &amp; Board Chair, since 2017. Founded Learn to Achieve in Del Norte County and remains actively involved on the board, providing strategic continuity and governance oversight across leadership generations.</p>
+        <p style="margin-bottom: 14px;"><strong>Roberto Morales</strong> &mdash; Co-founder, CFO &amp; CTO (operating team, above).</p>
+        <p>L2A received its 501(c)(3) determination in 2018 (EIN 82-3970859) and was founded with a small group of educators committed to serving under-resourced students in far-north California. The organization is currently in active compliance remediation with federal and California state authorities — a routine cleanup following the post-2021 dormancy of the founding team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVOLVE ===== -->
+<section class="involve" id="involve">
+  <div class="wrap">
+    <div class="section-label mono">— Get involved</div>
+    <h2 class="section-h2">Three ways in.</h2>
+    <p class="section-lede">If your work touches healthcare access, public-data infrastructure, workforce development, or college-prep programs — there's a door here for you.</p>
+
+    <div class="involve-grid">
+      <article class="involve-card">
+        <h3>Partner with us</h3>
+        <p>State agencies, school districts, county health offices, federal college-prep programs — if you have a public-data problem and no budget for a vendor, that's our specialty.</p>
+        <a href="mailto:learntoachieves@gmail.com">Start a conversation →</a>
+      </article>
+      <article class="involve-card">
+        <h3>Contribute</h3>
+        <p>Open-source, MIT-licensed, Python and SQL forward. PRs welcome on every repo. We onboard new contributors with a working doc and a single-issue starter task.</p>
+        <a href="https://github.com/Venura-Wijenayake" target="_blank" rel="noopener">Browse GitHub →</a>
+      </article>
+      <article class="involve-card">
+        <h3>Donate</h3>
+        <p>Every dollar funds public-benefit data infrastructure that the private sector won't build — because no one can be charged for it. EIN 82-3970859.</p>
+        <a href="#">Give via PayPal →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="brand-mark">L2A</div>
+          <div class="brand-name">Learn to Achieve</div>
+        </div>
+        <p class="footer-blurb">
+          A California nonprofit building free, open-source data tools and education programs for under-served learners. Founded 2017 in Del Norte County, California.
+        </p>
+      </div>
+      <div>
+        <h4>Work</h4>
+        <ul>
+          <li><a href="https://medicare-healthcare-explorer.streamlit.app" target="_blank" rel="noopener">Healthcare Explorer</a></li>
+          <li><a href="#work">CA Workforce GIS</a></li>
+          <li><a href="#work">Education tooling</a></li>
+          <li><a href="#work">All projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#thesis">Our thesis</a></li>
+          <li><a href="#roots">Roots &amp; history</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener">990 filings</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:learntoachieves@gmail.com">learntoachieves@gmail.com</a></li>
+          <li><a href="https://github.com/Venura-Wijenayake" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Press inquiries</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>EIN 82-3970859 · 5901 Newman Ct #38, Sacramento CA 95630</span>
+      <span>© 2026 Learn to Achieve · Built in the open</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
